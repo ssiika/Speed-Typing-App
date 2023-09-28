@@ -1,0 +1,10 @@
+user: {
+	username: string,
+	password: string (should be encrypted)
+}
+
+record: {
+	type: string (short, medium, long?)
+	time: integer
+	user: User foreign key
+}
