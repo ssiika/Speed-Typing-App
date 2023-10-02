@@ -8,24 +8,30 @@ namespace Typing_App_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        // GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private static List<User> testUsers = new List<User> {
+            new User(),
+            new User {Id=1, Username="Testo"}      
+        };
+        // GET: api/users
+        [HttpGet("getall")]
+        public ActionResult<List<User>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(testUsers);
         }
 
-        // GET api/<UsersController>/5
+        // GET api/users/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<User> GetSingle(int id)
         {
-            return "value";
+            return Ok(testUsers.FirstOrDefault(user => user.Id == id));
         }
 
-        // POST api/<UsersController>
+        // POST api/users
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<List<User>> AddUser(User newUser)
         {
+            testUsers.Add(newUser);
+            return Ok(testUsers);
         }
 
         // PUT api/<UsersController>/5
