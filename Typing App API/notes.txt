@@ -1,10 +1,12 @@
 user: {
+	id: string
 	username: string,
 	password: string (should be encrypted)
 }
 
 record: {
-	type: string (short, medium, long?)
+	id: string
+	length: enum (short, medium, long?)
 	time: integer
 	user: User foreign key
 }
