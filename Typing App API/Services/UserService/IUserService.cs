@@ -2,9 +2,9 @@
 {
     public interface IUserService
     {
-        Task<List<User>> GetAll();
-        Task<User> GetSingle(int id);
-        Task<List<User>> AddUser(User newUser);
+        Task<ServiceResponse<List<User>>> GetAll();
+        Task<ServiceResponse<User>> GetSingle(int id);
+        Task<ServiceResponse<List<User>>> AddUser(User newUser);
 
     }
 }

@@ -18,21 +18,21 @@ namespace Typing_App_API.Controllers
 
         // GET: api/users
         [HttpGet("getall")]
-        public async Task<ActionResult<List<User>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<User>>>> GetAll()
         {
             return Ok(await _userService.GetAll());
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<User>>> GetSingle(int id)
         {
             return Ok(await _userService.GetSingle(id));
         }
 
         // POST api/users
         [HttpPost]
-        public async Task<ActionResult<List<User>>> AddUser(User newUser)
+        public async Task<ActionResult<ServiceResponse<List<User>>>> AddUser(User newUser)
         {
             return Ok(await _userService.AddUser(newUser));
         }

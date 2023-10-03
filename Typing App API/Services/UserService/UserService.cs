@@ -8,26 +8,27 @@
             new User {Id=1, Username="Testo"}
         };
 
-        public async Task<List<User>> AddUser(User newUser)
+        public async Task<ServiceResponse<List<User>>> AddUser(User newUser)
         {
+            var serviceResponse = new ServiceResponse<List<User>>();
             testUsers.Add(newUser);
-            return testUsers;
+            serviceResponse.Data = testUsers;
+            return serviceResponse;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<ServiceResponse<List<User>>> GetAll()
         {
-            return testUsers;
+            var serviceResponse = new ServiceResponse<List<User>>();
+            serviceResponse.Data = testUsers;
+            return serviceResponse;
         }
 
-        public async Task<User> GetSingle(int id)
+        public async Task<ServiceResponse<User>> GetSingle(int id)
         {
+            var serviceResponse = new ServiceResponse<User>();
             var user = testUsers.FirstOrDefault(user => user.Id == id);
-            if (user is not null)
-            {
-                return user;
-            }
-            throw new Exception("User not found");
-            
+            serviceResponse.Data = user;
+            return serviceResponse;
         }
     }
 }
