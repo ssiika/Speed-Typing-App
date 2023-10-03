@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Typing_App_API.Services.UserService;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,30 +9,32 @@ namespace Typing_App_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private static List<User> testUsers = new List<User> {
-            new User(),
-            new User {Id=1, Username="Testo"}      
-        };
+        private readonly IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         // GET: api/users
         [HttpGet("getall")]
-        public ActionResult<List<User>> GetAll()
+        public async Task<ActionResult<List<User>>> GetAll()
         {
-            return Ok(testUsers);
+            return Ok(await _userService.GetAll());
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
-        public ActionResult<User> GetSingle(int id)
+        public async Task<ActionResult<User>> GetSingle(int id)
         {
-            return Ok(testUsers.FirstOrDefault(user => user.Id == id));
+            return Ok(await _userService.GetSingle(id));
         }
 
         // POST api/users
         [HttpPost]
-        public ActionResult<List<User>> AddUser(User newUser)
+        public async Task<ActionResult<List<User>>> AddUser(User newUser)
         {
-            testUsers.Add(newUser);
-            return Ok(testUsers);
+            return Ok(await _userService.AddUser(newUser));
         }
 
         // PUT api/<UsersController>/5
