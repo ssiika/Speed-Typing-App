@@ -1,4 +1,6 @@
 global using Typing_App_API.Models;
+global using Typing_App_API.Dtos.User;
+global using AutoMapper;
 using Typing_App_API.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();

@@ -8,26 +8,34 @@
             new User {Id=1, Username="Testo"}
         };
 
-        public async Task<ServiceResponse<List<User>>> AddUser(User newUser)
+        private readonly IMapper _mapper;
+        public UserService(IMapper mapper)
         {
-            var serviceResponse = new ServiceResponse<List<User>>();
-            testUsers.Add(newUser);
-            serviceResponse.Data = testUsers;
+            _mapper = mapper;
+        }
+
+        public async Task<ServiceResponse<List<GetUserDto>>> AddUser(AddUserDto newUser)
+        {
+            var serviceResponse = new ServiceResponse<List<GetUserDto>>();
+            var user = _mapper.Map<User>(newUser);
+            user.Id = testUsers.Max(x => x.Id) + 1;
+            testUsers.Add(user);
+            serviceResponse.Data = testUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<User>>> GetAll()
+        public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
         {
-            var serviceResponse = new ServiceResponse<List<User>>();
-            serviceResponse.Data = testUsers;
+            var serviceResponse = new ServiceResponse<List<GetUserDto>>();
+            serviceResponse.Data = testUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<User>> GetSingle(int id)
+        public async Task<ServiceResponse<GetUserDto>> GetSingle(int id)
         {
-            var serviceResponse = new ServiceResponse<User>();
+            var serviceResponse = new ServiceResponse<GetUserDto>();
             var user = testUsers.FirstOrDefault(user => user.Id == id);
-            serviceResponse.Data = user;
+            serviceResponse.Data = _mapper.Map<GetUserDto>(user);
             return serviceResponse;
         }
     }
