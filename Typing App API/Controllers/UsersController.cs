@@ -37,11 +37,19 @@ namespace Typing_App_API.Controllers
             return Ok(await _userService.AddUser(newUser));
         }
 
-        // PUT api/<UsersController>/5
+        // PUT api/users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> UpdateUser(int id, UpdateUserDto updatedUser)
         {
+            var response = await _userService.UpdateUser(id, updatedUser); 
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
+
 
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
