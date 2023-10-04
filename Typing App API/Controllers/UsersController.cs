@@ -51,10 +51,17 @@ namespace Typing_App_API.Controllers
         }
 
 
-        // DELETE api/<UsersController>/5
+        // DELETE api/users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> DeleteUser(int id)
         {
+            var response = await _userService.DeleteUser(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
     }
 }

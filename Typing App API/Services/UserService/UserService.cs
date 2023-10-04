@@ -22,7 +22,7 @@
             testUsers.Add(newMappedUser);
             serviceResponse.Data = testUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
             return serviceResponse;
-        }
+        } 
 
         public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
         {
@@ -63,6 +63,32 @@
                 serviceResponse.Message = ex.Message;
             }
             
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetUserDto>>> DeleteUser(int id)
+        {
+            var serviceResponse = new ServiceResponse<List<GetUserDto>>();
+
+            try
+            {
+                var user = testUsers.FirstOrDefault(user => user.Id == id);
+
+                if (user is null)
+                {
+                    throw new Exception($"User with id {id} not found");
+                }
+
+                testUsers.Remove(user);
+
+                serviceResponse.Data = testUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
             return serviceResponse;
         }
     }
