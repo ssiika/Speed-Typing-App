@@ -9,9 +9,13 @@
         };
 
         private readonly IMapper _mapper;
-        public UserService(IMapper mapper)
+
+        private readonly DataContext _context;
+
+        public UserService(IMapper mapper, DataContext context)
         {
             _mapper = mapper;
+            _context = context;
         }
 
         public async Task<ServiceResponse<List<GetUserDto>>> AddUser(AddUserDto newUser)
@@ -27,7 +31,8 @@
         public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
         {
             var serviceResponse = new ServiceResponse<List<GetUserDto>>();
-            serviceResponse.Data = testUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
+            var dbUsers = await _context.Users.ToListAsync();
+            serviceResponse.Data = dbUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
             return serviceResponse;
         }
 

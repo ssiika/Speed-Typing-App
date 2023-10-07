@@ -2,12 +2,16 @@ global using Typing_App_API.Models;
 global using Typing_App_API.Dtos.User;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
+global using Typing_App_API.Data;
 using Typing_App_API.Services.UserService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<DataContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
