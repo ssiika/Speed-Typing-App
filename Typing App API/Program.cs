@@ -1,6 +1,7 @@
 global using Typing_App_API.Models;
 global using Typing_App_API.Dtos.User;
 global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
 using Typing_App_API.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
