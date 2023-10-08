@@ -20,14 +20,26 @@ namespace Typing_App_API.Controllers
         [HttpGet("getall")]
         public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> GetAll()
         {
-            return Ok(await _userService.GetAll());
+            var response = await _userService.GetAll();
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         // GET api/users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetSingle(int id)
         {
-            return Ok(await _userService.GetSingle(id));
+            var response = await _userService.GetSingle(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         // POST api/users
