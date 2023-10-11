@@ -46,7 +46,22 @@ namespace Typing_App_API.Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> AddUser(AddUserDto newUser)
         {
+            
+                
             return Ok(await _userService.AddUser(newUser));
+        }
+
+        // POST api/users/login
+        [HttpPost("login")]
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> LoginUser(AddUserDto loginRequest)
+        {
+            var response = await _userService.LoginUser(loginRequest);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         // PUT api/users/5
