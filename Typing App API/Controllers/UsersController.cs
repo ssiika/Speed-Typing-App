@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Typing_App_API.Services.UserService;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -6,6 +7,7 @@ using Typing_App_API.Services.UserService;
 namespace Typing_App_API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -30,7 +32,7 @@ namespace Typing_App_API.Controllers
         }
 
         // GET api/users/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetSingle(int id)
         {
             var response = await _userService.GetSingle(id);
@@ -43,7 +45,7 @@ namespace Typing_App_API.Controllers
         }
 
         // POST api/users
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> AddUser(AddUserDto newUser)
         {
             
@@ -52,8 +54,8 @@ namespace Typing_App_API.Controllers
         }
 
         // POST api/users/login
-        [HttpPost("login")]
-        public async Task<ActionResult<ServiceResponse<GetUserDto>>> LoginUser(AddUserDto loginRequest)
+        [HttpPost("login"), AllowAnonymous]
+        public async Task<ActionResult<ServiceResponse<string>>> LoginUser(AddUserDto loginRequest)
         {
             var response = await _userService.LoginUser(loginRequest);
 

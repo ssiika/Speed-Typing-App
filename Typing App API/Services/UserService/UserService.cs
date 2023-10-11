@@ -1,15 +1,21 @@
-﻿namespace Typing_App_API.Services.UserService
+﻿using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace Typing_App_API.Services.UserService
 {
     public class UserService : IUserService
     {
 
         private readonly IMapper _mapper;
-
+        private readonly IConfiguration _configuration;
         private readonly DataContext _context;
 
-        public UserService(IMapper mapper, DataContext context)
+        public UserService(IMapper mapper, IConfiguration configuration, DataContext context)
         {
             _mapper = mapper;
+            _configuration = configuration;
             _context = context;
         }
 
@@ -32,9 +38,9 @@
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> LoginUser(AddUserDto loginRequest)
+        public async Task<ServiceResponse<string>> LoginUser(AddUserDto loginRequest)
         {
-            var serviceResponse = new ServiceResponse<GetUserDto>();  
+            var serviceResponse = new ServiceResponse<string>();  
 
             try
             {
@@ -50,7 +56,9 @@
                     throw new Exception("Wrong password");
                 }
 
-                serviceResponse.Data = _mapper.Map<GetUserDto>(user);
+                string token = CreateToken(user);
+
+                serviceResponse.Data = token;
             }
             catch (Exception ex)
             {
@@ -148,5 +156,27 @@
 
             return serviceResponse;
         }      
+
+        private string CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim> { 
+                new Claim(ClaimTypes.Name, user.Username)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value!));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(7),
+                    signingCredentials: creds
+                );
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
     }
 }
