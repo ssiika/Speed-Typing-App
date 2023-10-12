@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Typing_App_API.Models;
 
 namespace Typing_App_API.Services.UserService
 {
@@ -10,31 +11,55 @@ namespace Typing_App_API.Services.UserService
 
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataContext _context;
 
-        public UserService(IMapper mapper, IConfiguration configuration, DataContext context)
+        public UserService(
+            IMapper mapper, 
+            IConfiguration configuration, 
+            IHttpContextAccessor httpContextAccessor,
+            DataContext context       
+            )
         {
             _mapper = mapper;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<GetUserDto>>> AddUser(AddUserDto newUser)
+        public async Task<ServiceResponse<string>> AddUser(AddUserDto newUser)
         {
-            var serviceResponse = new ServiceResponse<List<GetUserDto>>();
+            var serviceResponse = new ServiceResponse<string>();
 
-            // Hash password
-            string passwordHash
-                = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+            try
+            {
+                // Hash password
+                string passwordHash
+                    = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
 
-            newUser.Password = passwordHash;
+                newUser.Password = passwordHash;
 
-            var newMappedUser = _mapper.Map<User>(newUser);
-            _context.Users.Add(newMappedUser);
-            await _context.SaveChangesAsync();
+                var newMappedUser = _mapper.Map<User>(newUser);
+                _context.Users.Add(newMappedUser);
+                await _context.SaveChangesAsync();
 
-            var updatedList = await _context.Users.ToListAsync();
-            serviceResponse.Data = updatedList.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
+                var addedUser = await _context.Users.FindAsync(newMappedUser.Id);
+
+                if (addedUser is null)
+                {
+                    throw new Exception("User not added to database successfully");
+                }
+
+                string token = CreateToken(addedUser);
+
+                serviceResponse.Data = token;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            
             return serviceResponse;
         }
 

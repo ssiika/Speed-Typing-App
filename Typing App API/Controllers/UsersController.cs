@@ -46,11 +46,15 @@ namespace Typing_App_API.Controllers
 
         // POST api/users
         [HttpPost, AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> AddUser(AddUserDto newUser)
+        public async Task<ActionResult<ServiceResponse<string>>> AddUser(AddUserDto newUser)
         {
-            
-                
-            return Ok(await _userService.AddUser(newUser));
+            var response = await _userService.AddUser(newUser);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
 
         // POST api/users/login
