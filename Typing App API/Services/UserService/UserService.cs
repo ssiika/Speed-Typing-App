@@ -160,7 +160,8 @@ namespace Typing_App_API.Services.UserService
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim> { 
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, "User")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
