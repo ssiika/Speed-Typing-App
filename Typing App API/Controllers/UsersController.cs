@@ -32,7 +32,7 @@ namespace Typing_App_API.Controllers
         }
 
         // GET api/users/5
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetSingle(int id)
         {
             var response = await _userService.GetSingle(id);
