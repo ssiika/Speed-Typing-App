@@ -6,6 +6,7 @@
         {
             CreateMap<User, GetUserDto>();
             CreateMap<AddUserDto, User>();
+            CreateMap<Record, GetRecordDto>();
         }
     }
 }

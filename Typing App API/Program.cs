@@ -1,14 +1,17 @@
 global using Typing_App_API.Models;
 global using Typing_App_API.Dtos.User;
+global using Typing_App_API.Dtos.Record;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
 global using Typing_App_API.Data;
 using Typing_App_API.Services.UserService;
+using Typing_App_API.Services.RecordService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +47,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRecordService, RecordService>();
 
 var app = builder.Build();
 

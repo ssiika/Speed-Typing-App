@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Typing_App_API.Services.RecordService;
 
 namespace Typing_App_API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class RecordsController : ControllerBase
     {
@@ -11,15 +13,25 @@ namespace Typing_App_API.Controllers
             new Record(),
             new Record { Length = (Length)2, Time = 10 }
         };
+
+        private readonly IRecordService _recordService;
+
+        public RecordsController(IRecordService recordService)
+        {
+            _recordService = recordService;
+        }
+
         // GET: api/records
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Record>>>> GetUserRecords()
+        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> GetUserRecords()
         {
-            var serviceResponse = new ServiceResponse<List<Record>>();
+            var response = await _recordService.GetUserRecords();
 
-            serviceResponse.Data = mockRecords;
-
-            return Ok(serviceResponse);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
     }
 }
