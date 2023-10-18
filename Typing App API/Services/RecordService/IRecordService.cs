@@ -3,5 +3,7 @@
     public interface IRecordService
     {
         Task<ServiceResponse<List<GetRecordDto>>> GetUserRecords();
+
+        Task<ServiceResponse<GetRecordDto>> AddRecord();
     }
 }

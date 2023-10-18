@@ -33,5 +33,18 @@ namespace Typing_App_API.Controllers
             }
             return Ok(response);
         }
+
+        // POST: api/records
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> AddRecord()
+        {
+            var response = await _recordService.AddRecord();
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
