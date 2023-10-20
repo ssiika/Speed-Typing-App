@@ -109,7 +109,7 @@ namespace Typing_App_API.Services.RecordService
                     Time = newRecord.Time,
                     User = user,
                 };
-            ;
+            
                 _context.Records.Add(newRecordWUser);
                 await _context.SaveChangesAsync();
 
@@ -130,7 +130,45 @@ namespace Typing_App_API.Services.RecordService
 
         public async Task<ServiceResponse<List<GetRecordDto>>> DeleteRecord(int id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetRecordDto>>();
+
+
+            try
+            {
+                if (_httpContextAccessor.HttpContext == null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) ??
+                    throw new Exception("Could not find user id");
+
+                var record = await _context.Records.Include("User").FirstOrDefaultAsync(record => record.Id == id);
+
+                if (record is null)
+                {
+                    throw new Exception($"Record with id {id} not found");
+                }
+
+                if (record.User?.Id != Int32.Parse(userId))
+                {
+                    throw new Exception("User does not have permission to edit this record");
+                }
+
+                _context.Records.Remove(record);
+                await _context.SaveChangesAsync();
+
+                var updatedList = await _context.Records.ToListAsync();
+                serviceResponse.Data = updatedList.Select(record => _mapper.Map<GetRecordDto>(record)).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
         }
     }
 } 

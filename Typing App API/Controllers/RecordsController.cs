@@ -59,5 +59,18 @@ namespace Typing_App_API.Controllers
             }
             return Ok(response);
         }
+
+        // DELETE api/records/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> DeleteRecord(int id)
+        {
+            var response = await _recordService.DeleteRecord(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
