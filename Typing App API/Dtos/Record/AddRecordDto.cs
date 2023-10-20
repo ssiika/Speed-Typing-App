@@ -5,6 +5,5 @@
     {
         public Length Length { get; set; }
         public int Time { get; set; }
-        public User? User { get; set; }
     }
 }

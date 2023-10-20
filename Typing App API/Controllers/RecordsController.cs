@@ -34,11 +34,24 @@ namespace Typing_App_API.Controllers
             return Ok(response);
         }
 
+        // GET: api/records/5
+        [HttpGet("{enumId}")]
+        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> GetRecordsByLength(int enumId)
+        {
+            var response = await _recordService.GetRecordsByLength(enumId);
+           
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
         // POST: api/records
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> AddRecord()
+        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> AddRecord(AddRecordDto newRecord)
         {
-            var response = await _recordService.AddRecord();
+            var response = await _recordService.AddRecord(newRecord);
 
             if (response.Data is null)
             {

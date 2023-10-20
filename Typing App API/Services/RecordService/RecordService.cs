@@ -28,7 +28,7 @@ namespace Typing_App_API.Services.RecordService
             var serviceResponse = new ServiceResponse<List<GetRecordDto>>();
 
             try
-            {          
+            {         
                 if (_httpContextAccessor.HttpContext == null)
                 {
                     throw new Exception("User not found");
@@ -42,12 +42,12 @@ namespace Typing_App_API.Services.RecordService
                 }
 
 
-                var userRecords = await _context.Records.Where(
+                var userRecords = await _context.Records.Include("User").Where(
                     record => record.User != null && record.User.Id == int.Parse(userId)
                     ).ToListAsync();
+
                 serviceResponse.Data = userRecords.Select(record => _mapper.Map<GetRecordDto>(record)).ToList();
 
-                return serviceResponse;
             }
             catch (Exception ex)
             {
@@ -58,7 +58,34 @@ namespace Typing_App_API.Services.RecordService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetRecordDto>> AddRecord()
+        public async Task<ServiceResponse<List<GetRecordDto>>> GetRecordsByLength(int enumId)
+        {
+            var serviceResponse = new ServiceResponse<List<GetRecordDto>>();
+            try
+            {
+                if (enumId < 1 || enumId > 3)
+                {
+                    throw new Exception("Enum identifier must be between 1 and 3");
+                }
+
+                var recordList = await _context.Records.Include("User").Where(
+                    record => record.Length == (Length)enumId
+                    ).ToListAsync();
+                serviceResponse.Data = recordList.Select(record => _mapper.Map<GetRecordDto>(record)).ToList();
+
+                serviceResponse.Message = enumId.ToString();
+
+            }
+            catch (Exception ex)
+            {              
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetRecordDto>> AddRecord(AddRecordDto newRecord)
         {
             var serviceResponse = new ServiceResponse<GetRecordDto>();
          
@@ -72,27 +99,25 @@ namespace Typing_App_API.Services.RecordService
 
                 string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? 
                     throw new Exception("Could not find user id");
-
-                var user = await _context.Users.FindAsync(userId) ?? 
+                
+                var user = await _context.Users.FindAsync(Int32.Parse(userId)) ?? 
                     throw new Exception("Could not find user");
 
-                var newRecord = new AddRecordDto
+                var newRecordWUser = new Record
                 {
-                    Length = (Length)1,
-                    Time = 10,
+                    Length = newRecord.Length,
+                    Time = newRecord.Time,
                     User = user,
                 };
-
-                var newMappedRecord = _mapper.Map<Record>(newRecord);
-                _context.Records.Add(newMappedRecord);
+            ;
+                _context.Records.Add(newRecordWUser);
                 await _context.SaveChangesAsync();
 
-                var addedRecord = await _context.Records.FindAsync(newMappedRecord.Id) ?? 
+                var addedRecord = await _context.Records.FindAsync(newRecordWUser.Id) ?? 
                     throw new Exception("User not added to database successfully");
 
                 serviceResponse.Data = _mapper.Map<GetRecordDto>(addedRecord);
 
-                return serviceResponse;
             }
             catch (Exception ex)
             {
@@ -101,6 +126,11 @@ namespace Typing_App_API.Services.RecordService
             }
 
             return serviceResponse;
+        }       
+
+        public async Task<ServiceResponse<List<GetRecordDto>>> DeleteRecord(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 } 
