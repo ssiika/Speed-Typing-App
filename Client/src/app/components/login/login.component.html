@@ -1,0 +1,39 @@
+<div className='loginContent'>
+  <section className="heading">
+    <h1 className='loginHeader'>
+      Login
+    </h1>
+  </section>
+  <section className="form">
+    <form [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+          className='loginForm'
+    >
+      <div className="form-group">
+        <input type="text"
+               className='form-control'
+               id='username'
+               name='username'
+               formControlName="username"
+               placeholder='Username'
+        />
+      </div>
+      <div className="form-group">
+        <input type="password"
+               className='form-control'
+               id='password'
+               name='password'
+               formControlName="password"
+               placeholder='Password'
+        />
+      </div>
+      <div className="errorbox">{{message}}</div>
+      <div className="form-group">
+        <button type='submit' className='loginBtn'>
+          Submit
+        </button>
+      </div>
+
+    </form>
+  </section>
+</div>
