@@ -26,6 +26,6 @@ export class RecordsComponent {
       .subscribe(records => {
         console.log(records)
         this.asyncRecords = records.data
-  });
+      });
   }
 }

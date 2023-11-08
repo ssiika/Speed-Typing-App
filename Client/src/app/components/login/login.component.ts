@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../../services/authService/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,7 @@ import { FormBuilder } from '@angular/forms';
 export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   message: string = '';
@@ -20,10 +22,24 @@ export class LoginComponent {
 
   onSubmit(): void {
     const userData = {
-      username: this.loginForm.value.username?.trim(),
-      password: this.loginForm.value.password?.trim(),
+      username: this.loginForm.value.username!?.trim(),
+      password: this.loginForm.value.password!?.trim(),
     }
-    this.message = `${this.loginForm.value.username}: ${this.loginForm.value.password}`;
+
+    if (!userData.username || !userData.password) {
+      this.message = 'Please provide a username and password'
+      return
+    }
+
+    this.authService.login(userData)
+      .subscribe(res => {
+        if (!res.success) {
+          this.message = res.message
+        } else {
+          this.message = `Bearer ${res.data}`
+        }
+      });
+
     this.loginForm.reset();
   }
 }

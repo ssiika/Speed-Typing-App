@@ -15,3 +15,8 @@ export interface ServiceResponse<T> {
   success: boolean;
   message: string
 }
+
+export interface UserData {
+  username: string;
+  password: string
+}
