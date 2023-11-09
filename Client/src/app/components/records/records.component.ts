@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Record } from '../../types';
+import { Router } from "@angular/router";
+import { AuthService } from '../../services/authService/auth.service';
 import { RecordService } from '../../services/recordService/record.service';
 
 @Component({
@@ -8,18 +10,14 @@ import { RecordService } from '../../services/recordService/record.service';
   styleUrls: ['./records.component.css']
 })
 export class RecordsComponent {
+  constructor(
+    private recordService: RecordService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
   records: Record[] = [];
   asyncRecords: Record[] = [];
-
-
-  constructor(private recordService: RecordService) { }
-
-  log(val: any) { console.log(val); }
-
-  ngOnInit(): void {
-    this.getAsyncRecords();
-  }
-
 
   getAsyncRecords(): void {
     this.recordService.getAsyncRecords()
@@ -27,5 +25,13 @@ export class RecordsComponent {
         console.log(records)
         this.asyncRecords = records.data
       });
+  }
+
+  ngOnInit(): void {
+    if (!this.authService.userCheck()) {
+      this.router.navigate(['/login'])
+      return;
+    };
+    this.getAsyncRecords();
   }
 }

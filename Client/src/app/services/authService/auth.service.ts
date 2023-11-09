@@ -8,6 +8,9 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   API_URL = '/api/Users/';
 
@@ -17,9 +20,11 @@ export class AuthService {
     })
   };
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  userCheck(): boolean {
+    const localUser = localStorage.getItem('user');
+
+    return localUser ? true: false
+  }
 
   // Login user
   login(userData: UserData): Observable<ServiceResponse<string>> {

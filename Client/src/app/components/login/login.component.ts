@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/authService/auth.service';
 
@@ -10,7 +11,8 @@ import { AuthService } from '../../services/authService/auth.service';
 export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   message: string = '';
@@ -36,10 +38,17 @@ export class LoginComponent {
         if (!res.success) {
           this.message = res.message
         } else {
-          this.message = `Bearer ${res.data}`
+          localStorage.setItem('user', res.data)
+          this.router.navigate(['/'])
         }
       });
 
     this.loginForm.reset();
+  }
+
+  ngOnInit(): void {
+    if (this.authService.userCheck()) {
+      this.router.navigate(['/'])
+    };
   }
 }
