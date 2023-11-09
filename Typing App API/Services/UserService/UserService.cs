@@ -33,6 +33,14 @@ namespace Typing_App_API.Services.UserService
 
             try
             {
+                // Check if user exists already 
+                var userExists = await _context.Users.FirstOrDefaultAsync(user => user.Username == newUser.Username);
+
+                if (userExists is not null)
+                {
+                    throw new Exception("User already exists");
+                }
+
                 // Hash password
                 string passwordHash
                     = BCrypt.Net.BCrypt.HashPassword(newUser.Password);

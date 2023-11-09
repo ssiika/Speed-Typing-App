@@ -15,6 +15,46 @@ export class RegisterComponent {
     private router: Router
   ) { }
 
+  message: string = '';
+
+  registerForm = this.formBuilder.group({
+    username: '',
+    password: '',
+    passwordConfirm: ''
+  });
+
+  onSubmit(): void {
+    if (!this.registerForm.value.username ||
+        !this.registerForm.value.password ||
+        !this.registerForm.value.passwordConfirm
+    ) {
+      this.message = 'Please provide an input for all fields'
+      return
+    }
+
+    if (this.registerForm.value.password !== this.registerForm.value.passwordConfirm) {
+      this.message = 'Passwords do not match'
+      return;
+    }
+
+    const userData = {
+      username: this.registerForm.value.username!?.trim(),
+      password: this.registerForm.value.password!?.trim(),
+    }
+
+    this.authService.register(userData)
+      .subscribe(res => {
+        if (!res.success) {
+          this.message = res.message
+        } else {
+          localStorage.setItem('user', res.data)
+          this.router.navigate(['/'])
+        }
+      });
+
+    this.registerForm.reset();
+  }
+
   ngOnInit(): void {
     if (this.authService.userCheck()) {
       this.router.navigate(['/'])

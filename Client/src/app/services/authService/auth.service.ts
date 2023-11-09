@@ -34,14 +34,22 @@ export class AuthService {
       );
   }
 
+  register(userData: UserData): Observable<ServiceResponse<string>> {
+    return this.http.post<ServiceResponse<string>>(this.API_URL, userData, this.httpOptions)
+      .pipe(
+        catchError(this.handleError())
+      );
+  }
+
   private handleError() {
     return (error: any): Observable<ServiceResponse<string>> => {
 
       const errorResponse: ServiceResponse<string> = {
         data: '',
         success: false,
-        message: error.error.message ? error.error.message : error.message
-
+        message: (error.error && error.error.message)
+          ? error.error.message
+          : error.message
       }
 
       console.log(errorResponse.message); // log to console 
