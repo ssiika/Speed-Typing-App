@@ -3,6 +3,7 @@ import { Record, ServiceResponse, UserSafe } from '../../types';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { ErrorService } from '../errorService/error.service'
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { catchError } from 'rxjs/operators';
 export class RecordService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private errorService: ErrorService
   ) { }
 
   User1: UserSafe = {
@@ -60,24 +62,7 @@ export class RecordService {
   getAsyncRecords(): Observable<ServiceResponse<Record[]>> {
     return this.http.get<ServiceResponse<Record[]>>('/api/Records', this.httpOptions)
       .pipe(
-        catchError(this.handleError<Record[]>())
+        catchError(this.errorService.handleError<Record[]>())
       );
-  }
-
-  private handleError<T>(){
-    return (error: any): Observable<ServiceResponse<T>> => {
-
-      const errorResponse: ServiceResponse<T> = {
-        success: false,
-        message: (error.error && error.error.message)
-          ? error.error.message
-          : error.message
-      }
-
-      console.log(errorResponse.message); // log to console 
-
-      // Let the app keep running by returning an empty result.
-      return of(errorResponse);
-    };
   }
 }
