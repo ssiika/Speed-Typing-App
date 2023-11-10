@@ -58,6 +58,26 @@ export class RecordService {
   };
 
   getAsyncRecords(): Observable<ServiceResponse<Record[]>> {
-    return this.http.get<ServiceResponse<Record[]>>('/api/Records', this.httpOptions)     
+    return this.http.get<ServiceResponse<Record[]>>('/api/Records', this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Record[]>())
+      );
+  }
+
+  private handleError<T>(){
+    return (error: any): Observable<ServiceResponse<T>> => {
+
+      const errorResponse: ServiceResponse<T> = {
+        success: false,
+        message: (error.error && error.error.message)
+          ? error.error.message
+          : error.message
+      }
+
+      console.log(errorResponse.message); // log to console 
+
+      // Let the app keep running by returning an empty result.
+      return of(errorResponse);
+    };
   }
 }

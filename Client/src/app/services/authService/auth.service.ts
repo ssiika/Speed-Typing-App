@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ServiceResponse, UserData } from '../../types';
+import { ServiceResponse, UserData, UserCreds } from '../../types';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -20,32 +20,31 @@ export class AuthService {
     })
   };
 
-  userCheck(): boolean {
+  userCheck(): string {
     const localUser = localStorage.getItem('user');
 
-    return localUser ? true: false
+    return localUser ? localUser : '';
   }
 
   // Login user
-  login(userData: UserData): Observable<ServiceResponse<string>> {
-    return this.http.post<ServiceResponse<string>>(this.API_URL + 'login', userData, this.httpOptions)
+  login(userData: UserData): Observable<ServiceResponse<UserCreds>> {
+    return this.http.post<ServiceResponse<UserCreds>>(this.API_URL + 'login', userData, this.httpOptions)
       .pipe(
-        catchError(this.handleError())
+        catchError(this.handleError<UserCreds>())
       );
   }
 
-  register(userData: UserData): Observable<ServiceResponse<string>> {
-    return this.http.post<ServiceResponse<string>>(this.API_URL, userData, this.httpOptions)
+  register(userData: UserData): Observable<ServiceResponse<UserCreds>> {
+    return this.http.post<ServiceResponse<UserCreds>>(this.API_URL, userData, this.httpOptions)
       .pipe(
-        catchError(this.handleError())
+        catchError(this.handleError<UserCreds>())
       );
   }
 
-  private handleError() {
-    return (error: any): Observable<ServiceResponse<string>> => {
+  private handleError<T>() {
+    return (error: any): Observable<ServiceResponse<T>> => {
 
-      const errorResponse: ServiceResponse<string> = {
-        data: '',
+      const errorResponse: ServiceResponse<T> = {
         success: false,
         message: (error.error && error.error.message)
           ? error.error.message

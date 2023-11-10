@@ -11,7 +11,7 @@ export interface UserSafe {
 }
 
 export interface ServiceResponse<T> {
-  data: T;
+  data?: T;
   success: boolean;
   message: string
 }
@@ -19,4 +19,9 @@ export interface ServiceResponse<T> {
 export interface UserData {
   username: string;
   password: string
+}
+
+export interface UserCreds {
+  username: string,
+  token: string
 }

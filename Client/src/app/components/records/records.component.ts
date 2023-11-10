@@ -22,8 +22,9 @@ export class RecordsComponent {
   getAsyncRecords(): void {
     this.recordService.getAsyncRecords()
       .subscribe(records => {
-        console.log(records)
-        this.asyncRecords = records.data
+        if (records.data) {
+          this.asyncRecords = records.data
+        }      
       });
   }
 

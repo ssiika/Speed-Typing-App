@@ -38,7 +38,7 @@ export class LoginComponent {
         if (!res.success) {
           this.message = res.message
         } else {
-          localStorage.setItem('user', res.data)
+          localStorage.setItem('user', JSON.stringify(res.data))
           this.router.navigate(['/'])
         }
       });
