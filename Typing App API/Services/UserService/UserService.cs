@@ -27,9 +27,9 @@ namespace Typing_App_API.Services.UserService
             _context = context;
         }
 
-        public async Task<ServiceResponse<string>> AddUser(AddUserDto newUser)
+        public async Task<ServiceResponse<UserCredsDto>> AddUser(AddUserDto newUser)
         {
-            var serviceResponse = new ServiceResponse<string>();
+            var serviceResponse = new ServiceResponse<UserCredsDto>();
 
             try
             {
@@ -60,7 +60,11 @@ namespace Typing_App_API.Services.UserService
 
                 string token = CreateToken(addedUser);
 
-                serviceResponse.Data = token;
+                serviceResponse.Data = new UserCredsDto
+                {
+                    Username = addedUser.Username,
+                    Token = token
+                };
             }
             catch (Exception ex)
             {
@@ -71,9 +75,9 @@ namespace Typing_App_API.Services.UserService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<string>> LoginUser(AddUserDto loginRequest)
+        public async Task<ServiceResponse<UserCredsDto>> LoginUser(AddUserDto loginRequest)
         {
-            var serviceResponse = new ServiceResponse<string>();  
+            var serviceResponse = new ServiceResponse<UserCredsDto>();  
 
             try
             {
@@ -91,7 +95,11 @@ namespace Typing_App_API.Services.UserService
 
                 string token = CreateToken(user);
 
-                serviceResponse.Data = token;
+                serviceResponse.Data = new UserCredsDto
+                {
+                    Username = user.Username,
+                    Token = token
+                };
             }
             catch (Exception ex)
             {

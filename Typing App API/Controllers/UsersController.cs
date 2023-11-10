@@ -46,7 +46,7 @@ namespace Typing_App_API.Controllers
 
         // POST api/users
         [HttpPost, AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<string>>> AddUser(AddUserDto newUser)
+        public async Task<ActionResult<ServiceResponse<UserCredsDto>>> AddUser(AddUserDto newUser)
         {
             var response = await _userService.AddUser(newUser);
 
@@ -59,7 +59,7 @@ namespace Typing_App_API.Controllers
 
         // POST api/users/login
         [HttpPost("login"), AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<string>>> LoginUser(AddUserDto loginRequest)
+        public async Task<ActionResult<ServiceResponse<UserCredsDto>>> LoginUser(AddUserDto loginRequest)
         {
             var response = await _userService.LoginUser(loginRequest);
 

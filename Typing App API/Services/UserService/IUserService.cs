@@ -4,8 +4,8 @@
     {
         Task<ServiceResponse<List<GetUserDto>>> GetAll();
         Task<ServiceResponse<GetUserDto>> GetSingle(int id);
-        Task<ServiceResponse<string>> AddUser(AddUserDto newUser);
-        Task<ServiceResponse<string>> LoginUser(AddUserDto loginRequest);
+        Task<ServiceResponse<UserCredsDto>> AddUser(AddUserDto newUser);
+        Task<ServiceResponse<UserCredsDto>> LoginUser(AddUserDto loginRequest);
         Task<ServiceResponse<GetUserDto>> UpdateUser(int id, UpdateUserDto updatedUser);
         Task<ServiceResponse<List<GetUserDto>>> DeleteUser(int id);
 
