@@ -110,6 +110,7 @@ namespace Typing_App_API.Services.UserService
             return serviceResponse;
         }
 
+
         public async Task<ServiceResponse<List<GetUserDto>>> GetAll()
         {
             var serviceResponse = new ServiceResponse<List<GetUserDto>>();

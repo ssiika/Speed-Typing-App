@@ -56,7 +56,7 @@ export class RegisterComponent {
   }
 
   ngOnInit(): void {
-    if (this.authService.userCheck()) {
+    if (this.authService.getValidUsername()) {
       this.router.navigate(['/'])
     };
   }
