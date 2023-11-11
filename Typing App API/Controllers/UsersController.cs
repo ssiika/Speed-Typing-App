@@ -7,7 +7,7 @@ using Typing_App_API.Services.UserService;
 namespace Typing_App_API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     public class UsersController : ControllerBase
     {
