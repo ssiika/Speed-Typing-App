@@ -1,8 +1,13 @@
 <p>header works!</p>
-<nav>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
+<nav *ngIf="username != ''; else loggedOut">
+  <div>{{username}}</div>
   <a routerLink="/">Dashboard</a>
   <a routerLink="/records">Records</a>
   <button type="button" (click)="logout()">Logout</button>
 </nav>
+<ng-template #loggedOut>
+  <nav *ngIf="username == ''">
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+  </nav>
+</ng-template>
