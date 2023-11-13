@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Record, ServiceResponse, UserSafe } from '../../types';
-import { Observable, of } from 'rxjs';
+import { Record, ServiceResponse } from '../../types';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { ErrorService } from '../errorService/error.service'

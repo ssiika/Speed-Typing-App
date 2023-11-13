@@ -42,8 +42,9 @@ namespace Typing_App_API.Services.RecordService
                 }
 
 
-                var userRecords = await _context.Records.Include("User").Where(
-                    record => record.User != null && record.User.Id == int.Parse(userId)
+                var userRecords = await _context.Records
+                    .Include("User")
+                    .Where(record => record.User != null && record.User.Id == int.Parse(userId)
                     ).ToListAsync();
 
                 serviceResponse.Data = userRecords.Select(record => _mapper.Map<GetRecordDto>(record)).ToList();
@@ -51,33 +52,6 @@ namespace Typing_App_API.Services.RecordService
             }
             catch (Exception ex)
             {
-                serviceResponse.Success = false;
-                serviceResponse.Message = ex.Message;
-            }
-
-            return serviceResponse;
-        }
-
-        public async Task<ServiceResponse<List<GetRecordDto>>> GetRecordsByLength(int enumId)
-        {
-            var serviceResponse = new ServiceResponse<List<GetRecordDto>>();
-            try
-            {
-                if (enumId < 1 || enumId > 3)
-                {
-                    throw new Exception("Enum identifier must be between 1 and 3");
-                }
-
-                var recordList = await _context.Records.Include("User").Where(
-                    record => record.Length == (Length)enumId
-                    ).ToListAsync();
-                serviceResponse.Data = recordList.Select(record => _mapper.Map<GetRecordDto>(record)).ToList();
-
-                serviceResponse.Message = enumId.ToString();
-
-            }
-            catch (Exception ex)
-            {              
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
@@ -105,7 +79,7 @@ namespace Typing_App_API.Services.RecordService
 
                 var newRecordWUser = new Record
                 {
-                    Length = newRecord.Length,
+                    Date = DateTime.Today,
                     Time = newRecord.Time,
                     User = user,
                 };

@@ -11,7 +11,7 @@ namespace Typing_App_API.Controllers
     {
         private static List<Record> mockRecords = new List<Record> {
             new Record(),
-            new Record { Length = (Length)2, Time = 10 }
+            new Record { Date = DateTime.Now, Time = 10 }
         };
 
         private readonly IRecordService _recordService;
@@ -27,19 +27,6 @@ namespace Typing_App_API.Controllers
         {
             var response = await _recordService.GetUserRecords();
 
-            if (response.Data is null)
-            {
-                return NotFound(response);
-            }
-            return Ok(response);
-        }
-
-        // GET: api/records/5
-        [HttpGet("{enumId}")]
-        public async Task<ActionResult<ServiceResponse<List<GetRecordDto>>>> GetRecordsByLength(int enumId)
-        {
-            var response = await _recordService.GetRecordsByLength(enumId);
-           
             if (response.Data is null)
             {
                 return NotFound(response);
