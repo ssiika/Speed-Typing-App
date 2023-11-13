@@ -8,6 +8,7 @@
             CreateMap<AddUserDto, User>();
             CreateMap<Record, GetRecordDto>();
             CreateMap<AddRecordDto, Record>();
+            CreateMap<User, GetUserDtoSafe>();
         }
     }
 }
