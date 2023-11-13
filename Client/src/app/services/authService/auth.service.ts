@@ -40,6 +40,17 @@ export class AuthService {
     return '';
   }
 
+  getToken(): string {
+    const localUser = localStorage.getItem('user');
+
+    if (localUser) {
+      const token = JSON.parse(localUser).token
+      return token
+    }
+    
+    return '';
+  }
+
   // Login user
   login(userData: UserData): Observable<ServiceResponse<UserCreds>> {
     return this.http.post<ServiceResponse<UserCreds>>(this.API_URL + 'login', userData, this.httpOptions)

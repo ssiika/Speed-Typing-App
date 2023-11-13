@@ -17,13 +17,12 @@ export class RecordsComponent {
   ) { }
 
   records: Record[] = [];
-  asyncRecords: Record[] = [];
 
-  getAsyncRecords(): void {
-    this.recordService.getAsyncRecords()
+  getRecords(): void {
+    this.recordService.getRecords()
       .subscribe(records => {
         if (records.data) {
-          this.asyncRecords = records.data
+          this.records = records.data
         }      
       });
   }
@@ -33,6 +32,6 @@ export class RecordsComponent {
       this.router.navigate(['/login'])
       return;
     };
-    this.getAsyncRecords();
+    this.getRecords();
   }
 }
