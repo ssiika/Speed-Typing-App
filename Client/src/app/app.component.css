@@ -5,6 +5,11 @@
     justify-content: center;
 }
 
+.main {
+    display: grid;
+    justify-content: center;
+}
+
 router-outlet {
     display: none;
 }
