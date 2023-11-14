@@ -1,0 +1,10 @@
+.content {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 200px auto;
+    justify-content: center;
+}
+
+router-outlet {
+    display: none;
+}

@@ -1,0 +1,35 @@
+.header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    padding: 50px;
+}
+
+.logoutBox {
+    padding-left: 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
+    align-items: center;
+    align-content: center;
+}
+
+.user {
+    font-style: italic;
+    font-size: 15px;
+}
+
+button {
+    width: 100px;
+    margin-top: 2px;
+}
+
+button:hover, .logout:hover {
+  background-color: #f2eee4;
+}
+
+.logout {
+    padding: 8px;
+    border-radius: 24px;
+    cursor: pointer;
+}

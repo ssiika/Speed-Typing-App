@@ -7,6 +7,7 @@ import { AuthService } from '../../services/authService/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent {
   username: string = '';
   constructor(

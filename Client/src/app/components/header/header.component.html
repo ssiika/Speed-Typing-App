@@ -1,13 +1,15 @@
-<p>header works!</p>
-<nav *ngIf="username != ''; else loggedOut">
-  <div>{{username}}</div>
-  <a routerLink="/">Dashboard</a>
-  <a routerLink="/records">Records</a>
-  <button type="button" (click)="logout()">Logout</button>
+
+<nav class="header" *ngIf="username != ''; else loggedOut">
+  <button mat-button routerLink="/">Play</button>
+  <button mat-button routerLink="/records">Records</button>
+  <div class="logoutBox">
+    <div class="user">{{username}}</div>
+    <mat-icon class="logout" (click)="logout()">logout</mat-icon>
+  </div> 
 </nav>
 <ng-template #loggedOut>
-  <nav *ngIf="username == ''">
-    <a routerLink="/login">Login</a>
-    <a routerLink="/register">Register</a>
+  <nav class="header" *ngIf="username == ''">
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-button routerLink="/register">Register</button>
   </nav>
 </ng-template>
