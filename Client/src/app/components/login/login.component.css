@@ -1,0 +1,19 @@
+.loginContent {
+    width: 300px;
+    text-align: center;
+}
+
+.loginHeader {
+    padding: 50px;
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.loginForm {
+    display: grid;
+    grid-template-rows: auto auto 40px auto;
+}
+
+.errorbox {
+    color: red;
+}

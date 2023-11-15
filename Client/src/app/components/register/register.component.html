@@ -1,44 +1,44 @@
-<div className='registerContent'>
-  <section className="heading">
-    <h1 className='registerHeader'>
+<div class='registerContent'>
+  <section class="heading">
+    <h1 class='registerHeader'>
       Register
     </h1>
   </section>
-  <section className="form">
-    <form [formGroup]="registerForm"
-          (ngSubmit)="onSubmit()"
-          className='registerForm'>
-      <div className="form-group">
-        <input type="text"
-               className='form-control'
-               id='username'
-               name='username'
-               formControlName="username"
-               placeholder='Username' />
-      </div>
-      <div className="form-group">
-        <input type="password"
-               className='form-control'
-               id='password'
-               name='password'
-               formControlName="password"
-               placeholder='Password' />
-      </div>
-      <div className="form-group">
-        <input type="password"
-               className='form-control'
-               id='passwordConfirm'
-               name='passwordConfirm'
-               formControlName="passwordConfirm"
-               placeholder='Confirm Password' />
-      </div>
-      <div className="errorbox">{{message}}</div>
-      <div className="form-group">
-        <button type='submit' className='registerBtn'>
-          Submit
-        </button>
-      </div>
-
-    </form>
-  </section>
+  <form [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+        class='registerForm'>
+    <mat-form-field class="form-group">
+      <mat-label>Username</mat-label>
+      <input matInput
+             type="text"
+             class='form-control'
+             id='username'
+             name='username'
+             formControlName="username" />
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <mat-label>Password</mat-label>
+      <input matInput
+             type="password"
+             class='form-control'
+             id='password'
+             name='password'
+             formControlName="password" />
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput
+             type="password"
+             class='form-control'
+             id='passwordConfirm'
+             name='passwordConfirm'
+             formControlName="passwordConfirm" />
+    </mat-form-field>
+    <div class="errorbox">{{message}}</div>
+    <div class="form-group">
+      <button mat-raised-button color="primary" type='submit' class='registerBtn'>
+        Submit
+      </button>
+    </div>
+  </form>
 </div>
