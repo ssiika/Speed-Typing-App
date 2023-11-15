@@ -16,15 +16,26 @@ export class RecordsComponent {
     private router: Router
   ) { }
 
+  displayedColumns: string[] = ['position', 'time', 'date'];
+
   records: Record[] = [];
 
   getRecords(): void {
     this.recordService.getRecords()
       .subscribe(records => {
         if (records.data) {
-          this.records = records.data
+          this.records = this.formatDates(records.data)
         }      
       });
+  }
+
+  formatDates(records: Record[]): Record[] {
+    return records.map((record) => {
+
+      record.date = new Date(Date.parse(record.date)).toLocaleDateString()
+      return record
+
+    })
   }
 
   ngOnInit(): void {

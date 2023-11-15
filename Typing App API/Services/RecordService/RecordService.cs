@@ -45,8 +45,8 @@ namespace Typing_App_API.Services.RecordService
                 var userRecords = await _context.Records
                     .Include("User")
                     .Where(record => record.User != null && record.User.Id == int.Parse(userId))
-                    .Take(20)
                     .OrderByDescending(record => record.Time)
+                    .Take(10)
                     .ToListAsync();
 
                 serviceResponse.Data = userRecords.Select(record => _mapper.Map<GetRecordDto>(record)).ToList();

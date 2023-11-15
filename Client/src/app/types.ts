@@ -1,6 +1,6 @@
 export interface Record {
   id: number;
-  length: string;
+  date: string;
   time: number;
   user?: UserSafe;
 }
