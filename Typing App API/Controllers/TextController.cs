@@ -18,7 +18,8 @@ namespace Typing_App_API.Controllers
 
         // POST: api/text
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Text>>>> AddText(Text newText)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ServiceResponse<List<GetTextDto>>>> AddText(AddTextDto newText)
         {
             var response = await _textService.AddText(newText);
 
@@ -31,7 +32,7 @@ namespace Typing_App_API.Controllers
 
         // GET: api/text
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<Text>>> GetText()
+        public async Task<ActionResult<ServiceResponse<GetTextDto>>> GetText()
         {
             var response = await _textService.GetText();
 

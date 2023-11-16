@@ -1,6 +1,7 @@
 global using Typing_App_API.Models;
 global using Typing_App_API.Dtos.User;
 global using Typing_App_API.Dtos.Record;
+global using Typing_App_API.Dtos.Text;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
 global using Typing_App_API.Data;

@@ -2,8 +2,8 @@
 {
     public interface ITextService
     {
-        Task<ServiceResponse<List<Text>>> AddText(Text newText);
+        Task<ServiceResponse<List<GetTextDto>>> AddText(AddTextDto newText);
 
-        Task<ServiceResponse<Text>> GetText();
+        Task<ServiceResponse<GetTextDto>> GetText();
     }
 }
