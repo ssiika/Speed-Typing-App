@@ -5,10 +5,12 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { RecordsComponent } from './components/records/records.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { RecordsComponent } from './pages/records/records.component';
+import { GameLoadingComponent } from './components/game-loading/game-loading.component';
+import { GameComponent } from './components/game/game.component';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,7 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    RecordsComponent
+    RecordsComponent,
+    GameComponent,
+    GameLoadingComponent
   ],
   imports: [
     HttpClientModule,

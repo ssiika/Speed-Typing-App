@@ -13,6 +13,11 @@ export class DashboardComponent {
     private router: Router
   ) { }
 
+  isStarted: boolean = false;
+
+  initGame(): void {
+    this.isStarted = true;
+  }
 
   ngOnInit(): void {
     if (!this.authService.getValidUsername()) {

@@ -1,0 +1,7 @@
+<app-game *ngIf="isStarted; else startScreen"></app-game>
+
+<ng-template #startScreen>
+  <button mat-raised-button color="primary" (click)="initGame()">Start</button>
+</ng-template>
+
+

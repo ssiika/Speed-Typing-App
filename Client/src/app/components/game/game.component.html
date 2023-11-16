@@ -1,0 +1,5 @@
+<app-game-loading *ngIf="isLoading; else game"></app-game-loading>
+
+<ng-template #game>
+  <div>{{text}}</div>
+</ng-template>
