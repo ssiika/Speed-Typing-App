@@ -9,5 +9,6 @@
 
         public DbSet<User> Users => Set<User>();
         public DbSet<Record> Records => Set<Record>();
+        public DbSet<Text> Text => Set<Text>();
     }
 }

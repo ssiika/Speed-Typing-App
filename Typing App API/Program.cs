@@ -6,6 +6,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Typing_App_API.Data;
 using Typing_App_API.Services.UserService;
 using Typing_App_API.Services.RecordService;
+using Typing_App_API.Services.TextService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -49,6 +50,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRecordService, RecordService>();
+builder.Services.AddScoped<ITextService, TextService>();
 
 
 var app = builder.Build();
