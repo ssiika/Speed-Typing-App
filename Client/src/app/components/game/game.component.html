@@ -1,5 +1,16 @@
 <app-game-loading *ngIf="isLoading; else game"></app-game-loading>
 
 <ng-template #game>
-  <div>{{text}}</div>
+  <div class="gameHeader">
+    <div class="gameMsg">The timer will start when you begin typing</div>
+    <div class="timerBox">{{time}}</div>
+  </div>
+  <div class="gameBox">
+    <div [ngClass]="i == 0 ? 'charBox highlighted' : 'charBox'"
+         *ngFor="let item of [].constructor(text.length); let i = index"
+         id={{i}}
+    >
+      {{text.charAt(i)}}
+    </div>
+  </div>
 </ng-template>

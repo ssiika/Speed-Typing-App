@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { GameService } from '../../services/gameService/game.service';
 
 @Component({
@@ -12,7 +12,45 @@ export class GameComponent {
   ) { }
 
   isLoading: boolean = true;
+  isStarted: boolean = false;
+  isCompleted: boolean = false;
   text: string = '';
+  time: number = 0.0;
+  mistakes: number = 0;
+  pointer: number = 0;
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    this.handleKey(event.key);
+  }
+
+  handleKey(key: string) {
+    if (this.pointer === 0) {
+      this.isStarted = true;
+    }
+
+    if (key === this.text.charAt(this.pointer)) {
+      // Key correct. Advance pointer
+      document.getElementById(`${this.pointer}`)?.classList.remove('wrong');
+      document.getElementById(`${this.pointer}`)?.classList.remove('highlighted');
+      document.getElementById(`${this.pointer}`)?.classList.add('correct');
+      
+    } else {
+      // Key wrong
+      document.getElementById(`${this.pointer}`)?.classList.add('wrong');
+      this.mistakes++
+      return;
+    }
+
+    this.pointer++
+    document.getElementById(`${this.pointer}`)?.classList.add('highlighted');
+
+    // Check if text is complete
+
+    if (this.pointer === this.text.length) {
+      console.log('You finished!')
+    }
+  }
 
   getText(): void {
     this.gameService.getText()
@@ -34,6 +72,6 @@ export class GameComponent {
 
     setTimeout(() => {
       this.getText();
-    }, 2000)    
+    }, 0)    
   }
 }

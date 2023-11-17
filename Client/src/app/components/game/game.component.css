@@ -1,0 +1,60 @@
+.gameHeader {
+    width: 980px;
+    display: grid;
+    grid-template-rows: 20px 20px;
+    justify-content: center;
+    gap: 25px;
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+
+.gameMsg {
+    font-weight: 400;
+}
+
+.timerBox {
+  text-align: center;
+}
+.gameBox {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(40, 22px);
+    justify-content: center;
+    gap: 2px;
+    row-gap: 5px;
+}
+
+.charBox {
+  font-family: "Courier New", monospace;
+  font-size: 25px;
+  border: 1px solid #c7d9d9;
+  border-radius: 5px;
+  height: 30px;
+  width: 22px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 4px;
+}
+
+.correct {
+  background-color: lightgreen;
+  color: white;
+}
+
+.wrong {
+  background-color: lightcoral;
+  color: white;
+}
+
+.highlighted {
+  border: 1px solid black;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    border: 1px solid #c7d9d9;
+  }
+}
