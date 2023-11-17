@@ -4,6 +4,6 @@
     {
         Task<ServiceResponse<List<GetTextDto>>> AddText(AddTextDto newText);
 
-        Task<ServiceResponse<GetTextDto>> GetText();
+        ServiceResponse<GetTextDto> GetText();
     }
 }

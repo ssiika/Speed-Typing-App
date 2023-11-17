@@ -32,9 +32,9 @@ namespace Typing_App_API.Controllers
 
         // GET: api/text
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<GetTextDto>>> GetText()
+        public  ActionResult<ServiceResponse<GetTextDto>> GetText()
         {
-            var response = await _textService.GetText();
+            var response = _textService.GetText();
 
             if (response.Data is null)
             {

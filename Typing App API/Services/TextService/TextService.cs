@@ -43,9 +43,30 @@ namespace Typing_App_API.Services.TextService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetTextDto>> GetText()
+        public ServiceResponse<GetTextDto> GetText()
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetTextDto>();
+
+            try
+            {
+                // Generate random integer between 0 and database length
+                int total = _context.Text.Count();
+                Random r = new();
+                int offset = r.Next(0, total);
+
+                var randomText = _context.Text.Skip(offset).FirstOrDefault() ??
+                    throw new Exception("Could not find text");
+
+                serviceResponse.Data = _mapper.Map<GetTextDto>(randomText);
+                return serviceResponse;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
         }
     }
 }
