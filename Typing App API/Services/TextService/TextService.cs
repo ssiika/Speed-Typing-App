@@ -43,7 +43,7 @@ namespace Typing_App_API.Services.TextService
             return serviceResponse;
         }
 
-        public ServiceResponse<GetTextDto> GetText()
+        public async Task<ServiceResponse<GetTextDto>> GetText()
         {
             var serviceResponse = new ServiceResponse<GetTextDto>();
 
@@ -54,7 +54,7 @@ namespace Typing_App_API.Services.TextService
                 Random r = new();
                 int offset = r.Next(0, total);
 
-                var randomText = _context.Text.Skip(offset).FirstOrDefault() ??
+                var randomText = await _context.Text.Skip(offset).FirstOrDefaultAsync() ??
                     throw new Exception("Could not find text");
 
                 serviceResponse.Data = _mapper.Map<GetTextDto>(randomText);

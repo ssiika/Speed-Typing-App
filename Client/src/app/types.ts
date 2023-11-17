@@ -5,6 +5,11 @@ export interface Record {
   user?: UserSafe;
 }
 
+export interface Text {
+  id: number,
+  textString: string
+}
+
 export interface UserSafe {
   Id: number;
   Username: string;

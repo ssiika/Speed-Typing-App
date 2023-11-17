@@ -14,10 +14,26 @@ export class GameComponent {
   isLoading: boolean = true;
   text: string = '';
 
+  getText(): void {
+    this.gameService.getText()
+      .subscribe(res => {
+        if (res.success && res.data) {
+          this.text = res.data.textString;
+        } else {
+          // Async GET did not work, retreive default text
+          this.text = this.gameService.getDefaultText();
+        }
+
+        this.isLoading = false;
+      });
+  }
+
   ngOnInit(): void {
+
+    // This timeout is only here to show off the loading screen, it does not serve any important function
+
     setTimeout(() => {
-      this.text = this.gameService.getDefaultText();
-      this.isLoading = false;
-    }, 3000)
+      this.getText();
+    }, 2000)    
   }
 }
