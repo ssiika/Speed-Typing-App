@@ -26,11 +26,13 @@ export class GameComponent {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    this.handleKey(event.key);
+    if (!this.isLoading && !this.isCompleted) {
+      this.handleKey(event.key);
+    }  
   }
 
   handleKey(key: string) {
-    if (this.pointer === 0) {
+    if (!this.isStarted) {
       this.isStarted = true;
       this.startTimer()
     }
@@ -65,13 +67,14 @@ export class GameComponent {
 
   stopTimer(): void {
     clearInterval(this.interval)
+    console.log('here')
   }
 
   endGame(): void {
     this.isStarted = false;
     this.isCompleted = true;
     this.stopTimer();
-    this.score = Math.round((this.text.length / this.time) * 10) / 10
+    this.score = Math.round((this.text.length / this.time) * 10 * 60) / 10
   }
 
   getText(): void {
