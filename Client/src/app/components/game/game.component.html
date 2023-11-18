@@ -1,16 +1,50 @@
-<app-game-loading *ngIf="isLoading; else game"></app-game-loading>
+<app-game-loading *ngIf="isLoading"></app-game-loading>
 
-<ng-template #game>
+<div class="resultsBox" *ngIf="isCompleted">
+  <div class="resultsHeader">Results</div>
+  <div class="stats">
+    <div>
+      <span>
+        Time:
+      </span>
+      <span class="statsScore">
+        {{time.toFixed(1)}}
+      </span>
+    </div>
+    <div>
+      <span>
+        No. of chars:
+      </span>
+      <span class="statsScore">
+        {{text.length}}
+      </span>
+    </div>
+    <div>
+      <span>
+        Avg. chars per minute:
+      </span>
+      <span class="mainScore">
+        {{score}}
+      </span>
+    </div>
+  </div> 
+  <div class="linkBox">
+    <button mat-raised-button color="primary" (click)="manualRedirect()">Play again</button>
+    <button mat-raised-button color="primary" routerLink="/records">Records</button>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && !isCompleted">
   <div class="gameHeader">
-    <div class="gameMsg">The timer will start when you begin typing</div>
-    <div class="timerBox">{{time}}</div>
+    <div class="gameMsg">{{isStarted ? '' : 'The timer will start when you begin typing'}}</div>
+    <div class="timerBox">{{time.toFixed(1)}}</div>
   </div>
   <div class="gameBox">
     <div [ngClass]="i == 0 ? 'charBox highlighted' : 'charBox'"
          *ngFor="let item of [].constructor(text.length); let i = index"
-         id={{i}}
+         id={{i}} 
     >
       {{text.charAt(i)}}
     </div>
   </div>
-</ng-template>
+</div>

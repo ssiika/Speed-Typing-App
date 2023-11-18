@@ -2,13 +2,12 @@
     width: 980px;
     display: grid;
     grid-template-rows: 20px 20px;
-    justify-content: center;
+    justify-items: center;
     gap: 25px;
     font-size: 18px;
     font-weight: 300;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
-
 
 .gameMsg {
     font-weight: 400;
@@ -16,6 +15,12 @@
 
 .timerBox {
   text-align: center;
+  font-weight: 400;
+  padding: 10px;
+  border: 1px solid lightblue;
+  box-shadow: 1px 1px lightblue;
+  width: 60px;
+  height: 18px;
 }
 .gameBox {
     width: 1000px;
@@ -57,4 +62,53 @@
   to {
     border: 1px solid #c7d9d9;
   }
+}
+
+.resultsBox {
+  margin-top: 10px;
+  height: 350px;
+  width: 650px;
+  display: grid;
+  justify-items: center;
+  padding: 30px;
+}
+
+.resultsHeader {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.stats {
+    width: 300px;
+    display: grid;
+    grid-template-rows: repeat(3, 50px);
+    gap: 2px;
+    text-align: center;
+}
+
+
+span:first-child {
+    float: left;
+}
+
+span:last-child {
+    float: right;
+}
+
+.statsScore {
+    font-weight: 500;
+}
+
+.mainScore {
+  border: 1px solid brown;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: 600;
+  margin-top: -7px;
+}
+
+.linkBox {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px;
 }
