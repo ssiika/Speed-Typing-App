@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public int Time { get; set; }
+        public float Time { get; set; }
         public User? User { get; set; }
     }
 }

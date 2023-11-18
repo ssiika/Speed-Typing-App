@@ -3,6 +3,6 @@
     using Typing_App_API.Models;
     public class AddRecordDto
     {
-        public int Time { get; set; }
+        public float Time { get; set; }
     }
 }
