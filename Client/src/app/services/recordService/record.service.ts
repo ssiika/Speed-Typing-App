@@ -17,9 +17,9 @@ export class RecordService {
     private authService: AuthService
   ) { }
 
-  addRecord(): Observable<ServiceResponse<Record>> {
+  addRecord(time: number): Observable<ServiceResponse<Record>> {
     const options = this.initOptions();
-    return this.http.post<ServiceResponse<Record>>('/api/Records', options)
+    return this.http.post<ServiceResponse<Record>>('/api/Records', { time } , options)
       .pipe(
         catchError(this.errorService.handleError<Record>())
       );

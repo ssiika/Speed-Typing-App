@@ -1,6 +1,7 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { GameService } from '../../services/gameService/game.service';
+import { RecordService } from '../../services/recordService/record.service';
 
 @Component({
   selector: 'app-game',
@@ -10,6 +11,7 @@ import { GameService } from '../../services/gameService/game.service';
 export class GameComponent {
   constructor(
     private router: Router,
+    private recordService: RecordService,
     private gameService: GameService
   ) { }
 
@@ -67,14 +69,19 @@ export class GameComponent {
 
   stopTimer(): void {
     clearInterval(this.interval)
-    console.log('here')
   }
 
   endGame(): void {
     this.isStarted = false;
     this.isCompleted = true;
     this.stopTimer();
-    this.score = Math.round((this.text.length / this.time) * 10 * 60) / 10
+    this.score = Math.round((this.text.length / this.time) * 10 * 60) / 10;
+    this.recordService.addRecord(this.score)
+      .subscribe(res => {
+        if (!res.success) {
+          console.log(res.message)
+        }
+      }); 
   }
 
   getText(): void {
