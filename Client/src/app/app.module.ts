@@ -11,6 +11,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RecordsComponent } from './pages/records/records.component';
 import { GameLoadingComponent } from './components/game-loading/game-loading.component';
 import { GameComponent } from './components/game/game.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DashboardComponent,
     RecordsComponent,
     GameComponent,
-    GameLoadingComponent
+    GameLoadingComponent,
+    SpinnerComponent
   ],
   imports: [
     HttpClientModule,

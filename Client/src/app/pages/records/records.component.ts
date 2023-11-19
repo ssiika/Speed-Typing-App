@@ -19,13 +19,15 @@ export class RecordsComponent {
   displayedColumns: string[] = ['position', 'time', 'date'];
 
   records: Record[] = [];
+  isLoading: boolean = true;
 
   getRecords(): void {
     this.recordService.getRecords()
       .subscribe(records => {
         if (records.data) {
-          this.records = this.formatDates(records.data)
-        }      
+          this.records = this.formatDates(records.data)          
+        }
+        this.isLoading = false;
       });
   }
 

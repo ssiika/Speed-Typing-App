@@ -16,6 +16,7 @@ export class RegisterComponent {
   ) { }
 
   message: string = '';
+  isLoading: boolean = false;
 
   registerForm = this.formBuilder.group({
     username: '',
@@ -42,6 +43,8 @@ export class RegisterComponent {
       password: this.registerForm.value.password!?.trim(),
     }
 
+    this.isLoading = true;
+
     this.authService.register(userData)
       .subscribe(res => {
         if (!res.success) {
@@ -50,6 +53,7 @@ export class RegisterComponent {
           localStorage.setItem('user', JSON.stringify(res.data))
           this.router.navigate(['/'])
         }
+        this.isLoading = false;
       });
 
     this.registerForm.reset();

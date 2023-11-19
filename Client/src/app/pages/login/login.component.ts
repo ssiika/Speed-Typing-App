@@ -16,6 +16,7 @@ export class LoginComponent {
   ) { }
 
   message: string = '';
+  isLoading: boolean = false;
 
   loginForm = this.formBuilder.group({
     username: '',
@@ -33,6 +34,8 @@ export class LoginComponent {
       return
     }
 
+    this.isLoading = true;
+
     this.authService.login(userData)
       .subscribe(res => {
         if (!res.success) {
@@ -41,6 +44,7 @@ export class LoginComponent {
           localStorage.setItem('user', JSON.stringify(res.data))
           this.router.navigate(['/'])
         }
+        this.isLoading = false;
       });
 
     this.loginForm.reset();
