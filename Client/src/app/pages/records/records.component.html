@@ -1,7 +1,7 @@
 <app-spinner *ngIf="isLoading; else content"></app-spinner>
 
   <ng-template #content>
-    <h2 class="header">Fastest Times</h2>
+    <h2 class="header">Best Scores</h2>
     <table mat-table [dataSource]="records">
 
       <ng-container matColumnDef="position">
@@ -10,7 +10,7 @@
       </ng-container>
 
       <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef> Characters / min </th>
+        <th mat-header-cell *matHeaderCellDef> Score </th>
         <td mat-cell *matCellDef="let record"> {{record.time}} </td>
       </ng-container>
 

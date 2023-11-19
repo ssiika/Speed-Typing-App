@@ -1,7 +1,25 @@
 <app-game *ngIf="isStarted; else startScreen"></app-game>
 
 <ng-template #startScreen>
-  <button mat-raised-button color="primary" (click)="initGame()">Start</button>
+  <div class="content">
+    <div class="description">
+      <h1>Speed Typing</h1>
+      <h3>Information</h3>
+      <p>
+        You will be given 100 words of randomly generated text to type out. A timer will start when you begin typing.
+        If you make a mistake,
+        you can simply keep typing and don't need to erase any incorrect input.
+      </p>
+      <p>
+        When you are finished, your score will be generated, which is the number of characters typed (including spaces)
+        divided by the amount of time taken.
+      </p>
+      <p>
+        Your top 10 scores can be viewed on the records page.
+      </p>
+    </div>
+    <button mat-raised-button color="primary" (click)="initGame()">Start</button>
+  </div>
 </ng-template>
 
 

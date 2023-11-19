@@ -1,0 +1,30 @@
+.description {
+    display: grid;
+    gap: 25px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 35px;
+  transform: skew(-22deg);
+}
+
+h1, h3 {
+    font-weight: 500;
+}
+
+p {
+  font-size: 15px;
+}
+
+.content {
+    margin-top: 20px;
+    display: grid;
+    justify-items: center;
+    width: 650px;
+    gap: 50px;
+}
+
+button {
+  width: 70px;
+}
