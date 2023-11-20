@@ -24,7 +24,7 @@
   <ItemGroup>
     <None Include="wwwroot\3rdpartylicenses.txt" />
     <None Include="wwwroot\index.html" />
-    <None Include="wwwroot\main.c6156dbb1d14fd7c.js" />
+    <None Include="wwwroot\main.212122db474f78c3.js" />
     <None Include="wwwroot\polyfills.51a46ea02b986886.js" />
     <None Include="wwwroot\runtime.726a12cf02269fc9.js" />
     <None Include="wwwroot\styles.9f492b33d480b416.css" />
