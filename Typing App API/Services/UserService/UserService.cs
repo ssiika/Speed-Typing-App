@@ -208,7 +208,7 @@ namespace Typing_App_API.Services.UserService
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value!));
+                Environment.GetEnvironmentVariable("token")!));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
