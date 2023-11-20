@@ -11,9 +11,10 @@
 
 .registerForm {
   display: grid;
-  grid-template-rows: auto auto auto 40px auto;
+  grid-template-rows: auto auto auto 55px auto;
 }
 
 .errorbox {
   color: red;
+  width: 100px;
 }
