@@ -113,6 +113,6 @@ export class GameComponent {
 
     setTimeout(() => {
       this.getText();
-    }, 1500)    
+    }, 0)    
   }
 }
