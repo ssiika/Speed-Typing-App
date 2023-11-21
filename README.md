@@ -10,7 +10,7 @@ https://speedtypingapp.azurewebsites.net/
 
 ## Features
 
-Users are given 100 words of randomly generated text to type out. At their end, their score ( number of characters typed divided by time ) is calculated and saved as a record.
+Users are given 100 words of randomly generated text to type out. At the end, their score ( number of characters typed divided by time ) is calculated and saved as a record.
 
 The users' top 10 times can be viewed on the records page. 
 
