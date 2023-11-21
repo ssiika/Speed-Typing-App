@@ -6,7 +6,7 @@ A live version of the app can be tested here:
 
 https://speedtypingapp.azurewebsites.net/
 
-(Please note that it may take a few minutes for the page to load initially because of the hosting site starting up the server)
+( Please note that it may take a few minutes for the page to load initially because of the hosting site starting up the server )
 
 ## Features
 
