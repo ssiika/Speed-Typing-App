@@ -2,11 +2,7 @@
 
 An app where users can improve their typing speed by typing out randomly generated text. 
 
-A live version of the app can be tested here:
-
-https://speedtypingapp.azurewebsites.net/
-
-( Please note that it may take a few minutes for the page to load initially because of the hosting site starting up the server )
+**Please note that this app does currently not have a live verion. One was previously available using Azure App Services, but has since been taken down due to server costs**
 
 ## Features
 
